@@ -2,5 +2,5 @@
 <p align="center">Open source code for SyNchr0n</p>
 <a href="https://github.com/sync-desu/synchron-bot/blob/main/LICENSE"><p align="center">MIT License</p></a>
 
-### Contact:
+### Contact me bby:
 - [Discord](https://discord.gg/vMrFHAQETE)
