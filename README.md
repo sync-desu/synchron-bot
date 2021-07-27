@@ -8,7 +8,7 @@ Heya! I am sekc sync and I am the developer of SyNchr0n.
 
 SyNchr0n is a bot that I made which turns out to be as sekc as I am. I made this discord bot just for fun since I had a lot of free time due to the outbreak. There are some requirements and guidelines you must follow before using this source code and you also make sure you go through the [FAQ](https://github.com/sync-desu/synchron-bot/blob/main/README.md#frequently-asked-questions-that-were-never-asked-in-reality "FAQ").
 
-My discord is `឵sync឵#9074`, you can hit me up on discord, or you can contact me through any of the methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
+My discord is `឵sync឵#9074`. You can hit me up on discord, or you can contact me through any other methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
 
 
 ## **Key Features:**
