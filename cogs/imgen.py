@@ -7,10 +7,10 @@ import os
 from utils.checks import bot_checks
 
 
-alex_api = alexflipnote.Client(os.environ["alexflipnote_api"])
-random_api = os.environ["some_random_api"]
-dagpi_api = os.environ["dagpi_api"]
-deep_api = os.environ["deep_api"]
+alex_api = alexflipnote.Client(os.environ["alexflipnote_api"]) # ENV Variable in heroku
+random_api = os.environ["some_random_api"] # ENV Variable in heroku
+dagpi_api = os.environ["dagpi_api"] # ENV Variable in heroku
+deep_api = os.environ["deep_api"] # ENV Variable in heroku
 
 
 class Image(commands.Cog):
