@@ -1,112 +1,502 @@
 import discord
 from discord.ext import commands
-import random
 import aiohttp
-import json
-from urllib.parse import quote
-
 from utils.checks import *
 
 
-api_key = "YOUR TENOR API KEY"
+base = "https://api.waifu.pics/sfw/"
 
 
-class Fun(commands.Cog):
+class Roleplay(commands.Cog):
+    """
+    Roleplay commands!
+    """
     def __init__(self, client):
         self.client = client
-        # Most of the commands in this cog were similar so i removed most of them lol.
+        self.emoji = "💃"
 
 
-#------------------------------------------------------HUG Command
     @commands.command()
     @bot_checks.embed_check()
     @commands.cooldown(1,5,commands.BucketType.user)
-    async def hug(self, ctx, user:discord.Member):
+    async def wave(self, ctx, user: discord.Member):
         """
-        Fetches a gif from Tenor api.
+        Wave at someone!
         """
         async with aiohttp.ClientSession() as session:
             if user.id == ctx.author.id:
-                self.hug.reset_cooldown(ctx) #Cooldown reset
-                return await ctx.reply("You hugged yourself. You should feel better now~")
+                self.wave.reset_cooldown(ctx)
+                return await ctx.reply("You wave at yourself.")
+            res = await session.get(base + "wave")
+            if res.status != 200:
+                self.wave.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} waves at {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
 
-            response = await session.get(f"https://g.tenor.com/v1/search?q=anime+hug&key={api_key}&limit=15&media_filter=basic") # Base request url. You can add more queries with `&query`.
-            
-            if response.status != 200:
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def wink(self, ctx, user: discord.Member):
+        """
+        Wink at someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.wink.reset_cooldown(ctx)
+                return await ctx.reply("You wink at yourself.")
+            res = await session.get(base + "wink")
+            if res.status != 200:
+                self.wink.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} winks at {user}. Such a sussy baka!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def hug(self, ctx, user: discord.Member):
+        """
+        Give a hug to someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.hug.reset_cooldown(ctx)
+                return await ctx.reply("You hug yourself.")
+            res = await session.get(base + "hug")
+            if res.status != 200:
                 self.hug.reset_cooldown(ctx)
                 return await ctx.reply("Something went wrong..", delete_after=5)
             else:
-                gifs = await response.json()
-                r_gif = random.choice(gifs["results"])
-                m_gif = r_gif["media"]
-                gif = list(map(lambda d: d['gif'], m_gif)) # You can also use for statements instead of map and lambda
-                url = list(map(lambda d: d['url'], gif))
-                
-                embed = discord.Embed(title=f"{ctx.author} gives a warm hug to {user}!", url=str(url[0]), color=0x5474b4)
-                embed.set_image(url=str(url[0]))
-                embed.set_footer(text="Powered by tenor.com")
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} gives a hug to {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
                 return await ctx.send(embed=embed)
-    
-    @hug.error                                   #Hug error handler
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            self.hug.reset_cooldown(ctx)
-            return await ctx.reply("You forgot to mention somebody..")
 
 
-#------------------------------------------------------CRY Command
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def cuddle(self, ctx, user: discord.Member):
+        """
+        Cuddle with someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.cuddle.reset_cooldown(ctx)
+                return await ctx.reply("You cuddle with yourself.")
+            res = await session.get(base + "cuddle")
+            if res.status != 200:
+                self.cuddle.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} cuddles with {user}!!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command(aliases=["headpat"])
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def pat(self, ctx, user: discord.Member):
+        """
+        Give a pat to someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.pat.reset_cooldown(ctx)
+                return await ctx.reply("You pat yourself.")
+            res = await session.get(base + "pat")
+            if res.status != 200:
+                self.pat.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} pats {user}. So cute!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def poke(self, ctx, user: discord.Member):
+        """
+        Poke someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.poke.reset_cooldown(ctx)
+                return await ctx.reply("You poke yourself.")
+            res = await session.get(base + "poke")
+            if res.status != 200:
+                self.poke.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} pokes {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def slap(self, ctx, user: discord.Member):
+        """
+        Slap someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.slap.reset_cooldown(ctx)
+                return await ctx.reply("You slap yourself.")
+            res = await session.get(base + "slap")
+            if res.status != 200:
+                self.slap.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} slaps {user}! Nani?!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def bonk(self, ctx, user: discord.Member):
+        """
+        Bonk someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.bonk.reset_cooldown(ctx)
+                return await ctx.reply("You bonk yourself.")
+            res = await session.get(base + "bonk")
+            if res.status != 200:
+                self.bonk.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} bonks {user}. Yamete!!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def nom(self, ctx, user: discord.Member):
+        """
+        Nom someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.nom.reset_cooldown(ctx)
+                return await ctx.reply("You nom yourself.")
+            res = await session.get(base + "nom")
+            if res.status != 200:
+                self.nom.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} noms {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def bite(self, ctx, user: discord.Member):
+        """
+        Bite someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.bite.reset_cooldown(ctx)
+                return await ctx.reply("You bite yourself.")
+            res = await session.get(base + "bite")
+            if res.status != 200:
+                self.bite.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} bites {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def kick(self, ctx, user: discord.Member):
+        """
+        Kick someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.kick.reset_cooldown(ctx)
+                return await ctx.reply("You kick yourself.")
+            res = await session.get(base + "kick")
+            if res.status != 200:
+                self.kick.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} kicks {user}!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def yeet(self, ctx, user: discord.Member):
+        """
+        Yeet someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.yeet.reset_cooldown(ctx)
+                return await ctx.reply("You yeet yourself.")
+            res = await session.get(base + "yeet")
+            if res.status != 200:
+                self.yeet.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} yeets {user}!!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def bully(self, ctx, user: discord.Member):
+        """
+        Bully someone! (not recommended)
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.bully.reset_cooldown(ctx)
+                return await ctx.reply("You bully yourself.")
+            res = await session.get(base + "bully")
+            if res.status != 200:
+                self.bully.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} bullies {user}. Stop it!!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def kiss(self, ctx, user: discord.Member):
+        """
+        Give a kiss to someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.kiss.reset_cooldown(ctx)
+                return await ctx.reply("You kiss yourself.")
+            res = await session.get(base + "kiss")
+            if res.status != 200:
+                self.kiss.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} gives a kiss to {user}! 😳😳", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def lick(self, ctx, user: discord.Member):
+        """
+        Lick someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.lick.reset_cooldown(ctx)
+                return await ctx.reply("You lick yourself.")
+            res = await session.get(base + "lick")
+            if res.status != 200:
+                self.lick.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} licks {user}. Gross!!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command(aliases=["frick"])
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def fuck(self, ctx, user: discord.Member):
+        """
+        Perform unholy acts with someone!
+        """
+        async with aiohttp.ClientSession() as session:
+            if user.id == ctx.author.id:
+                self.fuck.reset_cooldown(ctx)
+                return await ctx.reply("You fuck yourself.")
+            res = await session.get(base + "handhold")
+            if res.status != 200:
+                self.fuck.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} performs unholy acts with {user}.. Get a room!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+
+class Action(commands.Cog):
+    """
+    Action commands!
+    """
+    def __init__(self, client):
+        self.client = client
+        self.emoji = "😳"
+
+
     @commands.command()
     @bot_checks.embed_check()
     @commands.cooldown(1,5,commands.BucketType.user)
     async def cry(self, ctx):
         """
-        Fetches a gif from Tenor api.
+        Cry when you feel sad!
         """
         async with aiohttp.ClientSession() as session:
-            response = await session.get(f"https://g.tenor.com/v1/search?q=anime+crying&key={api_key}&limit=15&media_filter=basic")
-            if response.status != 200:
+            res = await session.get(base + "cry")
+            if res.status != 200:
                 self.cry.reset_cooldown(ctx)
                 return await ctx.reply("Something went wrong..", delete_after=5)
             else:
-                gifs = json.loads(await response.text())
-                r_gif = random.choice(gifs["results"])
-                m_gif = r_gif["media"]
-                gif = list(map(lambda d: d['gif'], m_gif))
-                url = list(map(lambda d: d['url'], gif))
-                
-                embed = discord.Embed(title=f"{ctx.author} is crying ;-;", url=str(url[0]), color=0x5474b4)
-                embed.set_image(url=str(url[0]))
-                embed.set_footer(text="Powered by tenor.com")
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} is crying. So sad!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
                 return await ctx.send(embed=embed)
 
 
-#------------------------------------------------------OWOIFY
-    @commands.command(aliases=["owo", "owofy"])
+    @commands.command()
+    @bot_checks.embed_check()
     @commands.cooldown(1,5,commands.BucketType.user)
-    async def owoify(self, ctx, *, args: str):
+    async def smile(self, ctx):
         """
-
-        Owoify your sentences.
-
+        Smile when you are happy!
         """
         async with aiohttp.ClientSession() as session:
-            enc_arg = quote(args)
-            res = await session.get(f"https://www.nekos.life/api/v2/owoify?text={enc_arg}") #nekos.life api
+            res = await session.get(base + "smile")
             if res.status != 200:
-                self.owoify.reset_cooldown(ctx)
+                self.smile.reset_cooldown(ctx)
                 return await ctx.reply("Something went wrong..", delete_after=5)
             else:
-                reply = await res.json()
-                return await ctx.reply(reply["owo"], mention_author=False)
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} is smiling!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
 
-    @owoify.error                                #Owoify error handler
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            self.owoify.reset_cooldown(ctx)
-            return await ctx.reply("What do you want me to owoify, hmph!!")
 
-            
+    @commands.command(aliases=["lewd"])
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def blush(self, ctx):
+        """
+        Blush when you are shy!
+        """
+        async with aiohttp.ClientSession() as session:
+            res = await session.get(base + "blush")
+            if res.status != 200:
+                self.blush.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} is blushing. OwO!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def smug(self, ctx):
+        """
+        Smug when you feel satisfied!
+        """
+        async with aiohttp.ClientSession() as session:
+            res = await session.get(base + "smug")
+            if res.status != 200:
+                self.smug.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} is being smug!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+    @commands.command()
+    @bot_checks.embed_check()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def cringe(self, ctx):
+        """
+        Cringe at someting unusual!
+        """
+        async with aiohttp.ClientSession() as session:
+            res = await session.get(base + "cringe")
+            if res.status != 200:
+                self.cringe.reset_cooldown(ctx)
+                return await ctx.reply("Something went wrong..", delete_after=5)
+            else:
+                res_json = await res.json()
+                gif = res_json["url"]
+                embed = discord.Embed(title=f"{ctx.author} is cringing!", url=gif, color=0x5474b4)
+                embed.set_image(url=gif)
+                return await ctx.send(embed=embed)
+
+
+
 
 
 def setup(client):
-    client.add_cog(Fun(client))
+    client.add_cog(Roleplay(client))
+    client.add_cog(Action(client))
