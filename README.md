@@ -4,18 +4,18 @@
 
 
 ## **Note from the Developer:**
-Heya! I am sekc sync and I am the developer of SyNchr0n. 
+Hello there. I am sync, the developer of this bot.
 
-SyNchr0n is a bot that I made which turns out to be as sekc as I am. I made this discord bot just for fun since I had a lot of free time due to the outbreak. There are some requirements and guidelines you must follow before using this source code and you also make sure you go through the [FAQ](https://github.com/sync-desu/synchron-bot/blob/main/README.md#frequently-asked-questions-that-were-never-asked-in-reality "FAQ").
+SyNchr0n is a bot created just for fun since I had a lot of free time because I tend to be jobless most of the time. There are some requirements and guidelines you must follow before using this source code and you also make sure you go through the [FAQ](https://github.com/sync-desu/synchron-bot/blob/main/README.md#frequently-asked-questions-that-were-never-asked-in-reality "FAQ"). I also expect you to know basic python and you are thorough with discord.py module.
 
-My discord is `឵sync឵#9074`. You can hit me up on discord, or you can contact me through any other methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
+You can hit me up on discord (`឵sync឵#9074`), or you can contact me through any other methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
 
 
 ## **Key Features:**
 1. Image Generation & Manipulation
 2. Custom Prefixes
 3. Roleplay
-4. Expressing Emotions
+4. Actions
 5. Very Sekc
 > More features coming soon..
 
@@ -23,13 +23,13 @@ My discord is `឵sync឵#9074`. You can hit me up on discord, or you can contac
 ## **Requirements:**
 - API's
     - Key Required:
-        - [Tenor](https://tenor.com/gifapi "Tenor API")
         - [Some-Random-Api](https://some-random-api.ml/ "Some-Random-API")
         - [Deep-AI](https://deepai.org/apis "Deep-AI API")
         - [Dagpi](https://dagpi.xyz/ "Dagpi API")
     - No Key Required:
         - [Dog.CEO](https://dog.ceo/api "Dog Imgen API")
         - [Cataas](https://cataas.com "Cat Imgen API")
+        - [Waifu.pics](https://waifu.pics/docs "Waifu Pics API")
         - [Nekos.Life](https://www.nekos.life/api/v2/endpoints "Nekos.Life Endpoints")
         - [Neko-Love](https://neko-love.xyz "Neko-Love")
 - Database
