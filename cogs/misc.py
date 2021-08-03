@@ -9,7 +9,6 @@ class Misc(commands.Cog):
         self.client = client
         
 
-#--------------------------------------------------PING Command
     @commands.command()
     @bot_checks.embed_check()
     @commands.cooldown(1,5,commands.BucketType.user)
@@ -26,6 +25,9 @@ class Misc(commands.Cog):
         embed2.add_field(name='Discord Latency', value=f'```\n{round(self.client.latency * 1000)}\n```')
         embed2.add_field(name='Message Latency', value=f'```\n{round(ping)}\n```')
         return await message.edit(embed=embed2)
+
+
+
 
 
 def setup(client):
