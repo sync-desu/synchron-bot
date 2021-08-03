@@ -1,14 +1,17 @@
-
 import discord
 from discord.ext import commands
+import os
 import asyncpg
 
+from cogs.dev import *
 from utils.checks import *
 
 
 async def get_prefix(client, message):
     """
+
     Returns guild default/custom prefix stored in database.
+
     """
     server = await client.db.fetchrow("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     prefix = server["prefix"]
@@ -17,38 +20,39 @@ async def get_prefix(client, message):
 
 client = commands.Bot(command_prefix = get_prefix
                     , case_insensitive=True
-                    , owner_id = "YOUR DISCORD USER ID"
+                    , owner_id = 688917796943560734
                     , intents=discord.Intents().all())
 
 
 async def create_db_pool():
-    """
-    NOTE: I used POSTGRE SQL for data storage.
-    """
-    client.db = await asyncpg.create_pool(database="YOUR DATABASE NAME", user="YOUR DATABASE USER NAME", password="YOUR DATABASE PASSWORD")
+    client.db = await asyncpg.create_pool(os.environ["DATABASE_URL"])
 
 
 #--------------------------------------------------BOT EVENTS
 @client.event
 async def on_ready():
     """
+    
     Prints message when bot is online and changes default status to custom status.
+    
     """
-    await client.change_presence(status=discord.Status.dnd, activity=discord.Activity(name="YOUR STATUS", type=5)) #Type 5 is "Competing in"
+    await client.change_presence(status=discord.Status.dnd, activity=discord.Activity(name="sekciest discord bot in 2021", type=5))
     return print('SyNchr0n is now awake.')
 
 @client.event
 async def on_message(message):
     """
+
     Ignores commands invoked by bot users and blacklisted users.
     Additionally ignores commands invoked in private messages.
+    
     """
     await client.wait_until_ready()
     if message.author.bot:
         return
-    if message.guild is None: # If you want to be able to run commands in bot dm, remove this if statement and some other things in utils.checks
+    if message.guild is None:
         return
-
+    
     user_status = await client.db.fetchrow("SELECT status FROM users WHERE user_id = $1", message.author.id)
     if not user_status:
         pass
@@ -62,20 +66,20 @@ async def on_message(message):
 
 #--------------------------------------------------COGS
 cogs = ['dev', 'errors', 'fun', 'imgen',
-         'misc', 'prefixes', 'utility', 'help']
+         'misc', 'utility', 'help']
 for cog in cogs:
     try:
-        client.load_extension(f"cogs.{cog}") # "cogs" is the name of my cog folder
+        client.load_extension(f"cogs.{cog}")
     except Exception as e:
         print(f'Could not load cog {cog}. Reason: {str(e)}')
 
-
 @client.command() 
-@user_checks.my_owner() #CUSTOM CHECK
+@user_checks.my_owner()
 async def reload(ctx, cogname = None):
     """
+    
     Re-load a cog after making changes, or just to refresh the commands.
-    NOTE: This will print "COGNAME is not loaded" if you enter the wrong COGNAME (for COGNAME in cogs)
+
     """
     if not cogname:
         return
@@ -89,12 +93,13 @@ async def reload(ctx, cogname = None):
         await ctx.reply(f'Reloaded cog `{cogname}` successfully.', mention_author=False, delete_after=1)
     return await bot_checks.message_delete(ctx)
 
-
 @client.command() 
 @user_checks.my_owner()
 async def load(ctx, cogname = None):
     """
+    
     Load a cog.
+
     """
     if not cogname:
         return
@@ -112,7 +117,9 @@ async def load(ctx, cogname = None):
 @user_checks.my_owner()
 async def unload(ctx, cogname = None):
     """
+    
     Unload a cog.
+
     """
     if not cogname:
         return
@@ -127,8 +134,6 @@ async def unload(ctx, cogname = None):
     return await bot_checks.message_delete(ctx)
 
 
-
-
-client.loop.run_until_complete(create_db_pool()) #Connection with the database until bot runs
-token = "YOUR TOKEN HERE"
+client.loop.run_until_complete(create_db_pool())
+token = os.environ["token"]
 client.run(token)
