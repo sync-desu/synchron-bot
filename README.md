@@ -1,5 +1,5 @@
 <h1 align="center">SyNchr0n Discord Bot</h1>
-<p align="center"><b>Open source code for SyNchr0n, the sekc-iest discord bot</b></p>
+<p align="center"><b>Open source code for SyNchr0n, yet another cringe discord bot</b></p>
 <a href="https://github.com/sync-desu/synchron-bot/blob/main/LICENSE"><p align="center">MIT License</p></a>
 
 
@@ -8,7 +8,7 @@ Hello there. I am sync, the developer of this bot.
 
 SyNchr0n is a bot created just for fun since I had a lot of free time because I tend to be jobless most of the time. There are some requirements and guidelines you must follow before using this source code and you also make sure you go through the [FAQ](https://github.com/sync-desu/synchron-bot/blob/main/README.md#frequently-asked-questions-that-were-never-asked-in-reality "FAQ"). I also expect you to know basic python and you are thorough with discord.py module.
 
-You can hit me up on discord (`឵sync឵#9074`), or you can contact me through any other methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
+You can hit me up on discord (`@syncyyyy`), or you can contact me through any other methods specified [here](https://github.com/sync-desu/synchron-bot/blob/main/README.md#contact "Contact").
 
 
 ## **Key Features:**
@@ -16,8 +16,7 @@ You can hit me up on discord (`឵sync឵#9074`), or you can contact me through 
 2. Custom Prefixes
 3. Roleplay
 4. Actions
-5. Very Sekc
-> More features coming soon..
+> More features coming soon.. (never)
 
 
 ## **Requirements:**
@@ -40,12 +39,11 @@ You can hit me up on discord (`឵sync឵#9074`), or you can contact me through 
 
 
 ## **Frequently asked questions that were never asked in reality:**
-### 1. Why are you so sekc?
+### 1. Why is this bot so cool?
 It is what it is.
 ### 2. Why is your bot's name so cringe? Eww!
 What is your name?
 
 
 ## **Contact:**
-- [Discord Support Server](https://discord.gg/vMrFHAQETE) that is half broken
-- [My Instagram](https://www.instagram.com/amvsync/), totally not self-promotion
+- [Discord Server](https://discord.gg/thesky), not mine but you can find me there
